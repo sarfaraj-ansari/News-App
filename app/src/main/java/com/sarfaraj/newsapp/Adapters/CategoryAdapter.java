@@ -1,6 +1,8 @@
 package com.sarfaraj.newsapp.Adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.sarfaraj.newsapp.MainActivity;
 import com.sarfaraj.newsapp.Models.CategoryItemModel;
 import com.sarfaraj.newsapp.R;
 
@@ -36,12 +39,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         CategoryItemModel model = arrayList.get(position);
 
         Glide.with(context).load(model.getImgUrl()).into(holder.imageView);
         holder.textView.setText(model.getCategory_text());
+
+        if(position == MainActivity.selectedTypePos) {
+            holder.textView.setTextColor(Color.parseColor("#FF000000"));
+        } else {
+            holder.textView.setTextColor(Color.parseColor("#37000000"));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

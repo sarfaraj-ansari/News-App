@@ -1,19 +1,17 @@
 package com.sarfaraj.newsapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.sarfaraj.newsapp.Adapters.CategoryAdapter;
 import com.sarfaraj.newsapp.Adapters.NewsAdapter;
@@ -26,10 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements CategoryAdapter.OnCategoryClick {
+
+    public static int selectedTypePos = -1;
 
     //api key  pub_39057464ce1fba2ee9df2b39a34a0cdc9450
     ActivityMainBinding binding;
@@ -109,8 +107,11 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.O
     }
 
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void categoryClicked(int position) {
+        selectedTypePos = position;
+        categoryAdapter.notifyDataSetChanged();
         CategoryItemModel categoryItemModel=categoryArraylist.get(position);
         String category=categoryItemModel.getCategory_text();
         getNewsFromApi("https://newsdata.io/api/1/news?apikey=pub_39057464ce1fba2ee9df2b39a34a0cdc9450&country=in&language=en&category="+category);
