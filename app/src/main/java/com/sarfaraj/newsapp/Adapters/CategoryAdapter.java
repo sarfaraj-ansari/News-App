@@ -49,7 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         if(position == MainActivity.selectedTypePos) {
             holder.textView.setTextColor(Color.parseColor("#FF000000"));
         } else {
-            holder.textView.setTextColor(Color.parseColor("#37000000"));
+            holder.textView.setTextColor(Color.parseColor("#4E4A55"));
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
