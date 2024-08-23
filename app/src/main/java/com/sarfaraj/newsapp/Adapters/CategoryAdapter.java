@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,14 +49,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         if(position == MainActivity.selectedTypePos) {
             holder.textView.setTextColor(Color.parseColor("#FF000000"));
+            holder.layoutHover.setVisibility(View.VISIBLE);
         } else {
             holder.textView.setTextColor(Color.parseColor("#4E4A55"));
+            holder.layoutHover.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onCategoryClick.categoryClicked(position);
+                if(position != MainActivity.selectedTypePos) {
+                    onCategoryClick.categoryClicked(position);
+                }
             }
         });
     }
@@ -69,12 +74,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         ImageView imageView;
         TextView textView;
+        private LinearLayout layoutHover;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.id_category_ImageView);
             textView = itemView.findViewById(R.id.id_category_TextView);
+            layoutHover=itemView.findViewById(R.id.layout_hover);
         }
     }
 
